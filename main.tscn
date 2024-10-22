@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bieojd13mu02v"]
+
+[ext_resource type="PackedScene" uid="uid://nfldpp0kvc0k" path="res://scenes/tools/table_proc_gen.tscn" id="1_l8pwb"]
+
+[node name="Main" type="Node3D"]
+
+[node name="TableProcGen" parent="." instance=ExtResource("1_l8pwb")]

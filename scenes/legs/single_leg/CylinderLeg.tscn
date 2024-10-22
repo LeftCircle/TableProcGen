@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://llppxxqb53tm"]
+
+[ext_resource type="Script" path="res://scenes/legs/single_leg/single_leg.gd" id="1_puipn"]
+[ext_resource type="PackedScene" uid="uid://bxruk5ji53jqo" path="res://assets/CylinderLeg.glb" id="2_2v68k"]
+
+[node name="CylinderLeg" type="Node3D"]
+script = ExtResource("1_puipn")
+
+[node name="CylinderLeg" parent="." instance=ExtResource("2_2v68k")]

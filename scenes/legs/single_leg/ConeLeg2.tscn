@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dcu1ja0lrl848"]
+
+[ext_resource type="Script" path="res://scenes/legs/single_leg/single_leg.gd" id="1_wcdl7"]
+[ext_resource type="PackedScene" uid="uid://c25be0r6vhdwo" path="res://assets/ConeLeg2.glb" id="2_x2fpv"]
+
+[node name="ConeLeg2" type="Node3D"]
+script = ExtResource("1_wcdl7")
+
+[node name="ConeLeg2" parent="." instance=ExtResource("2_x2fpv")]

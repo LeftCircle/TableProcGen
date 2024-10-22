@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://nfldpp0kvc0k"]
+
+[ext_resource type="Script" path="res://scenes/tools/table_proc_gen.gd" id="1_2nrgv"]
+
+[node name="TableProcGen" type="Node3D"]
+script = ExtResource("1_2nrgv")
+footprint = Vector3(2, 3, 5)
+legs = Array[String](["res://scenes/legs/single_leg/BasicSingleLeg.tscn", "res://scenes/legs/single_leg/ConeLeg2.tscn", "res://scenes/legs/single_leg/ConeLeg.tscn", "res://scenes/legs/single_leg/CylinderLeg.tscn"])
+tops = Array[String](["res://scenes/table_top/BasicTop.tscn"])
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.822799, 0.199638, -0.532115, -5.22506e-09, 0.936274, 0.35127, 0.568332, -0.289025, 0.770366, -4.12839, 7.70685, 10.5435)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.876844, 0, 0.480774, -0.313321, 0.758476, 0.571441, -0.364656, -0.651701, 0.665065, 6.62456, 14.4166, 8.61108)
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.594873, 0.625809, -0.50447, -0.313321, 0.758476, 0.571441, 0.740241, -0.181873, 0.647276, -15.3745, 16.9419, 5.80653)
