@@ -50,29 +50,65 @@ func _generate_legs(color : Color) -> void:
 	set_mesh_color(leg.get_mesh(), color)
 	_legs_in_scene.append(leg)
 	if leg is SingleLeg:
-		for i in range(3):
-			var other_leg = get_leg_with_path(leg_path)
-			add_child(other_leg)
-			set_mesh_color(other_leg.get_mesh(), color)
-			_legs_in_scene.append(other_leg)
+		_generate_other_single_legs(leg_path, color)
 	else:
-		assert(false, "Only support for single legs at the moment")
+		_generate_leg_and_add_to_scene(leg_path, color)
 	_position_legs()
-	_scale_legs_height()
+	_scale_legs()
+
+func _generate_other_single_legs(leg_path : String, color : Color) -> void:
+	for i in range(3):
+		_generate_leg_and_add_to_scene(leg_path, color)
+
+func _generate_leg_and_add_to_scene(leg_path : String, color : Color) -> void:
+	var other_leg = get_leg_with_path(leg_path)
+	add_child(other_leg)
+	set_mesh_color(other_leg.get_mesh(), color)
+	_legs_in_scene.append(other_leg)
 
 func _position_legs() -> void:
-	var offset = randf_range(0.1, max_leg_edge_offset)
 	if _legs_in_scene[0] is SingleLeg:
-		_legs_in_scene[0].position = Vector3.ZERO + Vector3(offset, 0, 0).rotated(Vector3(0, 1, 0), -PI / 4)
-		_legs_in_scene[1].position = Vector3(0, 0, footprint.z) + Vector3(offset, 0, 0).rotated(Vector3(0, 1, 0), PI / 4)
-		_legs_in_scene[2].position = Vector3(footprint.x, 0, 0) + Vector3(offset, 0, 0).rotated(Vector3(0, 1, 0), 5 * PI / 4)
-		_legs_in_scene[3].position = Vector3(footprint.x, 0, footprint.z) + Vector3(offset, 0, 0).rotated(Vector3(0, 1, 0), 3 * PI / 4)
+		_position_single_legs()
+	else:
+		_position_double_legs()
+
+func _position_single_legs() -> void:
+	var offset = randf_range(0.1, max_leg_edge_offset)
+	_legs_in_scene[0].position = Vector3.ZERO + Vector3(offset, 0, 0).rotated(Vector3(0, 1, 0), -PI / 4)
+	_legs_in_scene[1].position = Vector3(0, 0, footprint.z) + Vector3(offset, 0, 0).rotated(Vector3(0, 1, 0), PI / 4)
+	_legs_in_scene[2].position = Vector3(footprint.x, 0, 0) + Vector3(offset, 0, 0).rotated(Vector3(0, 1, 0), 5 * PI / 4)
+	_legs_in_scene[3].position = Vector3(footprint.x, 0, footprint.z) + Vector3(offset, 0, 0).rotated(Vector3(0, 1, 0), 3 * PI / 4)
+
+func _position_double_legs() -> void:
+	var offset = randf_range(0.1, max_leg_edge_offset)
+	if footprint.x > footprint.z:
+		_legs_in_scene[0].position = Vector3(offset, 0, footprint.z / 2.0)
+		_legs_in_scene[1].position = Vector3(footprint.x - offset, 0, footprint.z / 2.0)
+	else:
+		_legs_in_scene[0].position = Vector3(footprint.x / 2.0, 0, offset)
+		_legs_in_scene[1].position = Vector3(footprint.x / 2.0, 0, footprint.z - offset)
+
+func _scale_legs() -> void:
+	_scale_legs_height()
+	if _legs_in_scene[0] is DoubleLeg:
+		_scale_double_leg_width()
 
 func _scale_legs_height() -> void:
 	var leg_height = _legs_in_scene[0].get_aabb().size.y
 	var y_scale = footprint.y / leg_height
 	for leg in _legs_in_scene:
 		leg.set_y_scale(y_scale)
+
+func _scale_double_leg_width() -> void:
+	if not _legs_in_scene[0] is DoubleLeg:
+		return
+	var leg_width = _legs_in_scene[0].get_aabb().size.x
+	var width_scale = min(footprint.x, footprint.z) / leg_width
+	var leg_rotation : float = 0 if footprint.x < footprint.z else PI / 2
+	for leg in _legs_in_scene:
+		leg.set_x_z_scale(width_scale)
+	_legs_in_scene[0].set_rotation(Vector3(0, leg_rotation + PI, 0))
+	_legs_in_scene[1].set_rotation(Vector3(0, leg_rotation, 0))
 
 func _reset() -> void:
 	if is_instance_valid(_top_in_scene):

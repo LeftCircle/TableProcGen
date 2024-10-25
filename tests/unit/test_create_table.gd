@@ -23,6 +23,7 @@ func test_set_color():
 func test_legs_and_table_enter_scene() -> void:
 	var pg : TableProcGen = load(table_pg_path).instantiate()
 	add_child(pg)
+	await get_tree().process_frame
 	pg.build_table()
 	var top = pg.get_top_in_tree()
 	assert_true(top.is_inside_tree())

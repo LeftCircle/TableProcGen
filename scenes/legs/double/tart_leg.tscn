@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr0ov7nkby4vb"]
+
+[ext_resource type="Script" path="res://scenes/legs/double/double_leg.gd" id="1_mrcjx"]
+[ext_resource type="PackedScene" uid="uid://8lmmuuoephbs" path="res://assets/legs/double/TART DESK LEG.obj" id="2_0lor0"]
+
+[node name="TARTLeg" type="Node3D"]
+script = ExtResource("1_mrcjx")
+
+[node name="TART DESK LEG" parent="." instance=ExtResource("2_0lor0")]
+
+[node name="Mesh" parent="TART DESK LEG" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 599.875, 0, -0.0564575)
+
+[editable path="TART DESK LEG"]

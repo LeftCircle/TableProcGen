@@ -11,8 +11,6 @@ func get_color() -> Color:
 	return get_mesh().surface_get_material(0).albedo_color
 
 func get_base() -> Vector3:
-	# the origin of the leg is in the center, and we want the bottom/base position
-	# so we need to move it down by half the height
 	return position
 
 func get_top() -> Vector3:
@@ -26,6 +24,14 @@ func get_mesh_scale() -> Vector3:
 
 func set_y_scale(new_y_scale : float) -> void:
 	get_child(0).scale.y = new_y_scale
+
+func set_x_scale(new_x_scale : float) -> void:
+	get_child(0).scale.x = new_x_scale
+
+func set_x_z_scale(new_x_z_scale : float) -> void:
+	var child = get_child(0)
+	child.scale.x = new_x_z_scale
+	child.scale.z = new_x_z_scale
 
 func get_aabb() -> AABB:
 	var aabb = get_mesh().get_aabb()

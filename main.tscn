@@ -5,3 +5,4 @@
 [node name="Main" type="Node3D"]
 
 [node name="TableProcGen" parent="." instance=ExtResource("1_l8pwb")]
+footprint = Vector3(6, 3, 8)
